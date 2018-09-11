@@ -1,20 +1,24 @@
 package com.tiffin.objects;
 
-public class User {
+import java.io.Serializable;
 
-	private String userId;
-	private String userName;
-	private String password;
-	private String phone;
-	private String email;
-	private String location;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
+@Entity
+@Table(name = "TEMP_USER", schema = "prayojon_dev")
+public class User implements Serializable {
+	
 	public User() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public User(String userId, String userName, String password, String phone, String email, String location) {
+	public User(Integer userId, String userName, String password, String phone, String email, String location) {
 		super();
 		this.userId = userId;
 		this.userName = userName;
@@ -24,11 +28,31 @@ public class User {
 		this.location = location;
 	}
 
-	public String getUserId() {
+	@Id
+	@Column(name = "ID")
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Integer userId;
+
+	@Column(name = "USER_NAME")
+	private String userName;
+
+	@Column(name = "PASSWORD")
+	private String password;
+
+	@Column(name = "PHONE")
+	private String phone;
+
+	@Column(name = "EMAIL")
+	private String email;
+
+	@Column(name = "LOCATION")
+	private String location;
+
+	public Integer getUserId() {
 		return userId;
 	}
 
-	public void setUserId(String userId) {
+	public void setUserId(Integer userId) {
 		this.userId = userId;
 	}
 
@@ -70,11 +94,6 @@ public class User {
 
 	public void setLocation(String location) {
 		this.location = location;
-	}
-
-	@Override
-	public String toString() {
-		return userId;
 	}
 
 }

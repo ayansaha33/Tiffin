@@ -8,6 +8,7 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.tiffin.common.StaticVariable;
 import com.tiffin.dao.LoginDao;
@@ -17,6 +18,7 @@ import com.tiffin.objects.User;
 import com.tiffin.service.LoginService;
 
 @Service(value = "LoginService")
+@Transactional
 public class LoginServiceImpl implements LoginService {
 
 	private static final Logger logger = Logger.getLogger(LoginServiceImpl.class);
@@ -36,7 +38,7 @@ public class LoginServiceImpl implements LoginService {
 
 		} catch (Exception e) {
 			e.printStackTrace();
-			logger.error(e.getMessage());
+			logger.error("Error: ",e);
 			if (e instanceof EmptyResultDataAccessException) {
 				throw new TiffinAppBuinessException(StaticVariable.LOGIN_FAILURE, e.getMessage());
 			} else {
@@ -51,18 +53,19 @@ public class LoginServiceImpl implements LoginService {
 		int registerUsercounter = 0;
 
 		try {
-			registerUsercounter = loginDao.register(user);
-			System.out.println(registerUsercounter + "-----------registerUsercounter");
+			loginDao.register(user);
 		} catch (Exception e) {
-			logger.error(e.getMessage());
+			logger.error("error: ",e);
+			insertSucces=true;
 			throw new TiffinAppBuinessException(StaticVariable.INTERNAL_FAILURE, e.getMessage());
 		}
-		if (registerUsercounter == 1) {
+		if (insertSucces) {
+			throw new TiffinAppBuinessException(StaticVariable.INSERT_FAILURE, null);
+			
+		} else{
 			logger.info(registerUsercounter + "rows updated Successfully");
 			System.out.println(registerUsercounter + "rows updated Successfully");
-			insertSucces = true;
-		} else{
-			throw new TiffinAppBuinessException(StaticVariable.INSERT_FAILURE, null);
+			
 		}
 		return insertSucces;
 	}

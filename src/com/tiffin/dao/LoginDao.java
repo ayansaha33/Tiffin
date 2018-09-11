@@ -7,9 +7,9 @@ import com.tiffin.objects.User;
 
 public interface LoginDao {
 
-	int register(User user) throws Exception ;
+	public void register(User user) throws Exception ;
 
-	User validateUser(User user) throws Exception;
+	public User validateUser(User user) throws Exception;
 	
 	//List<Offer> getOfferingByUser(String user) throws Exception;
 	

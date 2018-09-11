@@ -9,7 +9,7 @@ import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import com.tiffin.service.PropertyService;
 
 @Configuration
-public class DataSourceConfig {
+public class DataSourceConfig {/*
 	
 	private static final Logger logger = Logger.getLogger(DataSourceConfig.class);
 
@@ -26,4 +26,4 @@ public class DataSourceConfig {
 		return driverManagerDataSource;
 	}
 
-}
+*/}

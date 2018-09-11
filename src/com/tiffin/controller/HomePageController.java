@@ -76,7 +76,7 @@ public class HomePageController {
 
 		ModelAndView mav = null;
 		try {
-			logger.debug(user.getUserName() + "-------------------" + user.getPassword());
+			logger.info(user.getUserName() + "-------------------" + user.getPassword());
 			User loginUser = loginService.checkUser(user);
 			if (loginUser != null) {
 				mav = new ModelAndView("welcome");
